@@ -1,12 +1,6 @@
 const gulp = require('gulp');
-const browserSync = require('browser-sync').create();
 const inject = require('gulp-inject');
 const webserver = require('gulp-webserver');
-
-
-
-
-
 
 const PATH = {
   src: 'src/**/*',
@@ -32,8 +26,6 @@ gulp.task('js', function () {
   return gulp.src(PATH.srcJS).pipe(gulp.dest(PATH.build));
 });
 
-
-
 gulp.task('copy', gulp.series(['html', 'css', 'js']));
 
 gulp.task('inject', gulp.series(['copy'], function () {
@@ -49,9 +41,7 @@ gulp.task('inject', gulp.series(['copy'], function () {
     .pipe(gulp.dest(PATH.build));
 }));
 
-
-
-gulp.task('serve',gulp.series( ['inject'], function () {
+gulp.task('serve', gulp.series(['inject'], function () {
   return gulp.src(PATH.build)
     .pipe(webserver({
       port: 3000,
@@ -59,13 +49,8 @@ gulp.task('serve',gulp.series( ['inject'], function () {
     }));
 }));
 
-
-
 gulp.task('watch', gulp.series(['serve'], function () {
   gulp.watch(PATH.src, gulp.series(['inject']));
 }));
 
-
 gulp.task('default', gulp.parallel(['watch']));
-
-
